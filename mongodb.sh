@@ -38,7 +38,7 @@ if [ -e "/etc/yum.repos.d/mongo.repo" ]
  then
     echo -e "MongoDB repo file already exists. Skipping copy."
 else
-    cp monogo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+    cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
     VALIDATE $? "Copied MongoDB repo into yum.repos.d"
 fi
 
