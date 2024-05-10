@@ -18,8 +18,8 @@ do
 
     if [[$i == "mongodb" || $i == "redis" || $i == "mysql" || $i == "rabbitmq"$i == "catalogue" || $i == "user"$i == "cart" || $i == "shipping"$i == "payment" || $i == "web"]]
         then
-        INSTANCE_TYPE="t2.micro"
-    fi
+            INSTANCE_TYPE="t2.micro"
+        fi
 
     echo "creating $i instance"
     IP_ADDRESS=$(aws ec2 run-instances --image-id $IMAGE_ID  --instance-type $INSTANCE_TYPE --security-group-ids $SECURITY_GROUP_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]" | jq -r '.Instances[0].PrivateIpAddress')
