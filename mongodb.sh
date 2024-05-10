@@ -32,9 +32,17 @@ VALIDATE() {
 
 }
 
-cp monogo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+# cp monogo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 
-VALIDATE $? "Copied MongoDB repo into yum.repos.d"
+# VALIDATE $? "Copied MongoDB repo into yum.repos.d"
+
+# Check if mongo.repo already exists, if yes, skip copying
+if [ -e "/etc/yum.repos.d/mongo.repo" ]; then
+    echo -e "$2 ... $G MongoDB repo file already exists. Skipping copy. $N"
+else
+    cp monogo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+    VALIDATE $? "Copied MongoDB repo into yum.repos.d"
+fi
 
 yum install mongodb-org -y &>> $LOGFILE
 
